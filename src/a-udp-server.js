@@ -1,24 +1,19 @@
-var PORT = 4444;
-
-var HOST = "127.0.0.1";
-
 var dgram = require("dgram");
+
+var PORT = 4444;
 
 var server = dgram.createSocket("udp4");
 
 server.on("listening", function () {
   var address = server.address();
 
-  console.log(
-    "UDP Server listening on " + address.address + ":" + address.port
-  );
+  console.log("UDP SERVER LISTENING ON: " + address.port);
 });
 
 server.on("message", function (message, remote) {
-  console.log(remote.address + ":" + remote.port + " - " + message);
-
-  var msgResponse = "OK";
-
+  console.log("============");
+  console.log("> Receive: " + message);
+  var msgResponse = "Hi C";
   server.send(
     msgResponse,
     0,
@@ -27,12 +22,9 @@ server.on("message", function (message, remote) {
     remote.address,
     function (err, bytes) {
       if (err) throw err;
-
-      console.log(
-        "UDP server message sent to " + remote.address + ":" + remote.port
-      );
+      console.log("< Send:  " + msgResponse);
     }
   );
 });
 
-server.bind(PORT, HOST);
+server.bind(PORT);
