@@ -1,13 +1,11 @@
 var net = require("net");
 
-var HOST = "192.168.1.33";
-
 var PORT = 8088;
 
 var client = new net.Socket();
 
-client.connect(PORT, HOST, function () {
-  console.log("CLIENT CONNECTED TO: " + HOST + ":" + PORT);
+client.connect(PORT, function () {
+  console.log("CLIENT CONNECTED TO: " + PORT);
   client.write("I am Thor!");
 });
 
